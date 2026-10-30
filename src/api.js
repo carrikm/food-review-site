@@ -28,6 +28,18 @@ async function uploadImage(file) {
   return supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl
 }
 
+// Storage object path from a public URL; null for anything not in our bucket.
+function storagePath(url) {
+  const marker = `/${BUCKET}/`
+  const i = url ? url.indexOf(marker) : -1
+  return i === -1 ? null : decodeURIComponent(url.slice(i + marker.length))
+}
+
+async function removeImage(url) {
+  const path = storagePath(url)
+  if (path) await supabase.storage.from(BUCKET).remove([path])
+}
+
 const toReview = (row) => ({ ...row, image: row.image_url })
 
 export async function fetchReviews() {
@@ -47,5 +59,27 @@ export async function createReview(fields, imageFile) {
   return toReview(data)
 }
 
-export const signIn = (email, password) => supabase.auth.signInWithPassword({ email, password })
+export async function updateReview(review, fields, imageFile) {
+  const image_url = imageFile ? await uploadImage(imageFile) : review.image_url
+  const { data, error } = await supabase
+    .from('reviews')
+    .update({ ...fields, image_url })
+    .eq('id', review.id)
+    .select()
+  if (error || data.length === 0) {
+    if (imageFile) await removeImage(image_url) // don't leave the new upload orphaned
+    throw error || new Error('Update was not allowed. Are you signed in?')
+  }
+  if (imageFile) await removeImage(review.image_url)
+  return toReview(data[0])
+}
+
+export async function deleteReview(review) {
+  const { data, error } = await supabase.from('reviews').delete().eq('id', review.id).select()
+  if (error) throw error
+  if (data.length === 0) throw new Error('Delete was not allowed. Are you signed in?')
+  await removeImage(review.image_url)
+}
+
+export const signIn =(email, password) => supabase.auth.signInWithPassword({ email, password })
 export const signOut = () => supabase.auth.signOut()

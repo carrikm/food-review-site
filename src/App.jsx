@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { createReview, fetchReviews, signOut } from './api'
+import { createReview, deleteReview, fetchReviews, signOut, updateReview } from './api'
+import Intro from './components/Intro'
 import LoginForm from './components/LoginForm'
 import ReviewCard from './components/ReviewCard'
 import ReviewDetail from './components/ReviewDetail'
@@ -14,6 +15,7 @@ export default function App() {
   const [session, setSession] = useState(null)
   const [selected, setSelected] = useState(null)
   const [adding, setAdding] = useState(false)
+  const [editing, setEditing] = useState(null)
   const [loggingIn, setLoggingIn] = useState(false)
 
   useEffect(() => {
@@ -37,10 +39,28 @@ export default function App() {
     setAdding(false)
   }
 
+  async function saveEdit(fields, imageFile) {
+    const updated = await updateReview(editing, fields, imageFile)
+    setReviews((r) => r.map((x) => (x.id === updated.id ? updated : x)))
+    setSelected(updated)
+    setEditing(null)
+  }
+
+  async function removeReview(review) {
+    if (!window.confirm(`Delete your review of ${review.name}? This can't be undone.`)) return
+    try {
+      await deleteReview(review)
+      setReviews((r) => r.filter((x) => x.id !== review.id))
+      setSelected(null)
+    } catch (err) {
+      window.alert(err.message || 'Could not delete the review.')
+    }
+  }
+
   return (
     <>
       <header className="site-header">
-        <h1>🍽️ Food Reviews</h1>
+        <h1>🍕 Pizza Rankings</h1>
         <div className="header-actions">
           {isAdmin ? (
             <>
@@ -60,6 +80,7 @@ export default function App() {
       </header>
 
       <main>
+        <Intro />
         {loading ? (
           <p className="empty">Loading…</p>
         ) : loadError ? (
@@ -75,8 +96,16 @@ export default function App() {
         )}
       </main>
 
-      {selected && <ReviewDetail review={selected} onClose={() => setSelected(null)} />}
+      {selected && !editing && (
+        <ReviewDetail
+          review={selected}
+          onClose={() => setSelected(null)}
+          onEdit={isAdmin ? setEditing : undefined}
+          onDelete={isAdmin ? removeReview : undefined}
+        />
+      )}
       {adding && isAdmin && <ReviewForm onSubmit={addReview} onClose={() => setAdding(false)} />}
+      {editing && isAdmin && <ReviewForm review={editing} onSubmit={saveEdit} onClose={() => setEditing(null)} />}
       {loggingIn && !isAdmin && <LoginForm onClose={() => setLoggingIn(false)} />}
     </>
   )

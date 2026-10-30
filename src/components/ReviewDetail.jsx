@@ -4,11 +4,11 @@ import ScoreBadge from './ScoreBadge'
 
 const CATEGORIES = [
   ['taste', 'Taste'],
-  ['price', 'Value / Price'],
+  ['price', 'Price'],
   ['vibe', 'Vibe'],
 ]
 
-export default function ReviewDetail({ review, onClose }) {
+export default function ReviewDetail({ review, onClose, onEdit, onDelete }) {
   return (
     <Modal onClose={onClose}>
       <img className="detail-img" src={review.image} alt={review.name} />
@@ -32,6 +32,20 @@ export default function ReviewDetail({ review, onClose }) {
             </div>
           ))}
         </div>
+        {(onEdit || onDelete) && (
+          <div className="form-actions detail-actions">
+            {onDelete && (
+              <button className="btn danger" onClick={() => onDelete(review)}>
+                Delete
+              </button>
+            )}
+            {onEdit && (
+              <button className="btn primary" onClick={() => onEdit(review)}>
+                Edit
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </Modal>
   )

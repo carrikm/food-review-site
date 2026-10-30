@@ -4,17 +4,18 @@ import Modal from './Modal'
 import ScoreBadge from './ScoreBadge'
 import ScoreInput from './ScoreInput'
 
-export default function ReviewForm({ onSubmit, onClose }) {
+export default function ReviewForm({ review, onSubmit, onClose }) {
+  const editing = Boolean(review)
   const [form, setForm] = useState({
-    name: '',
-    location: '',
-    summary: '',
-    taste: 5,
-    price: 5,
-    vibe: 5,
+    name: review?.name ?? '',
+    location: review?.location ?? '',
+    summary: review?.summary ?? '',
+    taste: review?.taste ?? 5,
+    price: review?.price ?? 5,
+    vibe: review?.vibe ?? 5,
   })
   const [imageFile, setImageFile] = useState(null)
-  const [preview, setPreview] = useState('')
+  const [preview, setPreview] = useState(review?.image ?? '')
   const [error, setError] = useState('')
   const [saving, setSaving] = useState(false)
 
@@ -43,7 +44,7 @@ export default function ReviewForm({ onSubmit, onClose }) {
   return (
     <Modal onClose={onClose}>
       <form className="form-body" onSubmit={handleSubmit}>
-        <h2>Add a review</h2>
+        <h2>{editing ? 'Edit review' : 'Add a review'}</h2>
 
         <label className="field">
           Restaurant name
@@ -56,7 +57,7 @@ export default function ReviewForm({ onSubmit, onClose }) {
         </label>
 
         <label className="field">
-          Photo
+          Photo {editing && <span className="hint">(leave empty to keep the current photo)</span>}
           <input type="file" accept="image/*" onChange={onImage} />
           {preview && <img className="preview" src={preview} alt="Preview" />}
         </label>
@@ -66,9 +67,9 @@ export default function ReviewForm({ onSubmit, onClose }) {
           <textarea value={form.summary} onChange={(e) => set('summary')(e.target.value)} />
         </label>
 
-        <ScoreInput label="Taste" value={form.taste} onChange={set('taste')} />
-        <ScoreInput label="Price" hint="(10 = great value)" value={form.price} onChange={set('price')} />
-        <ScoreInput label="Vibe" value={form.vibe} onChange={set('vibe')} />
+        <ScoreInput label="Taste" hint="(the pizza itself)" value={form.taste} onChange={set('taste')} />
+        <ScoreInput label="Price" hint="(all items; 10 = great deal)" value={form.price} onChange={set('price')} />
+        <ScoreInput label="Vibe" hint="(would we eat in?)" value={form.vibe} onChange={set('vibe')} />
 
         <div className="overall-preview">
           Overall (average) <ScoreBadge score={overallScore(form)} />
