@@ -72,7 +72,7 @@ export default function ReviewForm({ review, onSubmit, onClose }) {
         <ScoreInput label="Vibe" hint="(would we eat in?)" value={form.vibe} onChange={set('vibe')} />
 
         <div className="overall-preview">
-          Overall (average) <ScoreBadge score={overallScore(form)} />
+          Slice Score (average) <ScoreBadge score={overallScore(form)} />
         </div>
 
         {error && <p className="error">{error}</p>}

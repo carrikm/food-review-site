@@ -414,6 +414,22 @@ main {
   flex-shrink: 0;
 }
 
+.detail-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.detail-score > span:last-child {
+  font-family: var(--display);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--red-deep);
+}
+
 .summary {
   margin: 1.25rem 0;
   line-height: 1.65;

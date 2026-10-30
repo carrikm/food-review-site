@@ -18,7 +18,10 @@ export default function ReviewDetail({ review, onClose, onEdit, onDelete }) {
             <h2>{review.name}</h2>
             <p>{review.location}</p>
           </div>
-          <ScoreBadge score={overallScore(review)} />
+          <div className="detail-score">
+            <ScoreBadge score={overallScore(review)} />
+            <span>Slice Score</span>
+          </div>
         </div>
         {review.summary && <p className="summary">{review.summary}</p>}
         <div className="breakdown">
