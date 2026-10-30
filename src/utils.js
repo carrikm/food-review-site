@@ -8,6 +8,10 @@ export function scoreClass(score) {
   return 'bad'
 }
 
+// Highest Slice Score first. Ties go to the better pizza (Taste), then to the
+// review added first (lowest id), so the order never depends on fetch order.
 export function sortByOverall(reviews) {
-  return [...reviews].sort((a, b) => overallScore(b) - overallScore(a))
+  return [...reviews].sort(
+    (a, b) => overallScore(b) - overallScore(a) || b.taste - a.taste || a.id - b.id,
+  )
 }
