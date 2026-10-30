@@ -4,7 +4,7 @@ export default function Intro() {
       <p className="intro-lead">
         Two people, one mission: find the best pizza within 20 minutes of Messiah University. We’re working our way
         through the area’s independent pizzerias, from corner slice shops to sit-down favorites, and scoring each one
-        on Taste, Price and Vibe. The three scores are averaged into our Slice Score, and the rankings below update
+        on Taste, Price, and Vibe. The three scores are averaged into our Slice Score, and the rankings below update
         with every new stop. There are a lot of pizza places around here and we’ll probably miss a few, but every
         score comes from a real visit. Browse the list, open a card for the full story, and tell us where to eat next.
       </p>
@@ -26,11 +26,11 @@ export default function Intro() {
 
         <details>
           <summary>How we score</summary>
-          <p>Taste, Price and Vibe are each a whole number from 1 to 10, with no half-grades.</p>
+          <p>Taste, Price, and Vibe are each a whole number from 1 to 10, with no half-grades.</p>
           <dl>
             <dt>Taste: How good is the pizza?</dt>
             <dd>
-              Everything about the pie counts, including crust style, sauce and greasiness. Taste takes a hit when a
+              Everything about the pie counts, including crust style, sauce, and greasiness. Taste takes a hit when a
               restaurant makes choices we find atypical or peculiar, like shredded ham instead of chunks or slices.
               We’ll cover the rest of the food in the full review, but this number is about the pizza itself.
             </dd>
@@ -49,7 +49,7 @@ export default function Intro() {
             </dd>
             <dt>Slice Score: What’s the final verdict?</dt>
             <dd>
-              The average of Taste, Price and Vibe, with each counting equally. It’s rounded to one decimal, so it’s
+              The average of Taste, Price, and Vibe, with each counting equally. It’s rounded to one decimal, so it’s
               the one score that can land between whole numbers, like a 7.7. The rankings are sorted by Slice Score,
               highest first.
             </dd>
