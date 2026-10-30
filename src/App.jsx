@@ -61,7 +61,7 @@ export default function App() {
     <>
       <header className="site-header">
         <div className="brand">
-          <h1>🍕 Pizza Rankings</h1>
+          <h1>🍕 West Shore Slices</h1>
           <p className="tagline">Every independent pizzeria near Messiah, ranked</p>
         </div>
         <div className="header-actions">
