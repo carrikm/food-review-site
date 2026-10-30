@@ -4,7 +4,7 @@ export default function Intro() {
       <p className="intro-lead">
         Two people, one mission: find the best pizza within 20 minutes of Messiah University. We’re working our way
         through the area’s independent pizzerias, from corner slice shops to sit-down favorites, and scoring each one
-        on taste, price and vibe. The three scores are averaged into an overall grade, and the rankings below update
+        on Taste, Price and Vibe. The three scores are averaged into an overall grade, and the rankings below update
         with every new stop. There are a lot of pizza places around here and we’ll probably miss a few, but every
         score comes from a real visit. Browse the list, open a card for the full story, and tell us where to eat next.
       </p>

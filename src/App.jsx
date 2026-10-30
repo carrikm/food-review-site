@@ -60,7 +60,10 @@ export default function App() {
   return (
     <>
       <header className="site-header">
-        <h1>🍕 Pizza Rankings</h1>
+        <div className="brand">
+          <h1>🍕 Pizza Rankings</h1>
+          <p className="tagline">Every independent pizzeria near Messiah, ranked</p>
+        </div>
         <div className="header-actions">
           {isAdmin ? (
             <>
