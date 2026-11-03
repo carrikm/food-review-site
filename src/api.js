@@ -42,6 +42,9 @@ async function removeImage(url) {
 
 const toReview = (row) => ({ ...row, image: row.image_url })
 
+
+
+// CRUD operations for reviews.
 export async function fetchReviews() {
   const { data, error } = await supabase.from('reviews').select('*')
   if (error) throw error
@@ -81,5 +84,6 @@ export async function deleteReview(review) {
   await removeImage(review.image_url)
 }
 
+// login and logout to Supabase, which is used to gate the ability to add, edit, or delete reviews. The site itself is public and read-only.
 export const signIn =(email, password) => supabase.auth.signInWithPassword({ email, password })
 export const signOut = () => supabase.auth.signOut()

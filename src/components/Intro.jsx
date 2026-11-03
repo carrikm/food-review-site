@@ -4,14 +4,14 @@ export default function Intro() {
       <p className="intro-lead">
         Two people, one mission: find the best pizza within 20 minutes of Messiah University. We’re working our way
         through the area’s independent pizzerias, from corner slice shops to sit-down favorites, and scoring each one
-        on Taste, Price, and Vibe. The three scores are averaged into our Slice Score, and the rankings below update
+        on Taste, Price, and Vibe. These three scores are then averaged into our total Slice Score, our representation of how strong a pizza place is all-around. The rankings below update
         with every new stop. There are a lot of pizza places around here and we’ll probably miss a few, but every
-        score comes from a real visit. Browse the list, open a card for the full story, and tell us where to eat next.
+        score comes from a real visit. Browse the list and follow along with our journey as we try to find the best pizza place on the West Shore.
       </p>
 
       <div className="intro-details">
         <details>
-          <summary>The rules</summary>
+          <summary>The Rules</summary>
           <ul>
             <li>No major chains. You won’t find Pizza Hut or Papa Johns on this list.</li>
             <li>Different locations with the same name are sampled as if they were independently owned stores.</li>
@@ -25,7 +25,7 @@ export default function Intro() {
         </details>
 
         <details>
-          <summary>How we score</summary>
+          <summary>How We Score</summary>
           <p>Taste, Price, and Vibe are each a whole number from 1 to 10, with no half-grades.</p>
           <dl>
             <dt>Taste: How good is the pizza?</dt>
