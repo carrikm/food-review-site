@@ -42,11 +42,14 @@ async function removeImage(url) {
 
 const toReview = (row) => ({ ...row, image: row.image_url })
 
-
+// Give up on loading after this long rather than showing "Loading…" forever.
+const LOAD_TIMEOUT_MS = 15000
 
 // CRUD operations for reviews.
 export async function fetchReviews() {
-  const { data, error } = await supabase.from('reviews').select('*')
+  const signal = AbortSignal.timeout(LOAD_TIMEOUT_MS)
+  const { data, error } = await supabase.from('reviews').select('*').abortSignal(signal)
+  if (signal.aborted) throw new Error('The server took too long to respond.')
   if (error) throw error
   return data.map(toReview)
 }
@@ -58,7 +61,10 @@ export async function createReview(fields, imageFile) {
     .insert({ ...fields, image_url })
     .select()
     .single()
-  if (error) throw error
+  if (error) {
+    if (imageFile) await removeImage(image_url) // don't leave the new upload orphaned
+    throw error
+  }
   return toReview(data)
 }
 

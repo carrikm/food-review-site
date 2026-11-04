@@ -1,5 +1,6 @@
 import { overallScore } from '../utils'
 import Modal from './Modal'
+import Photo from './Photo'
 import ScoreBadge from './ScoreBadge'
 
 const CATEGORIES = [
@@ -11,7 +12,7 @@ const CATEGORIES = [
 export default function ReviewDetail({ review, onClose, onEdit, onDelete }) {
   return (
     <Modal onClose={onClose}>
-      <img className="detail-img" src={review.image} alt={review.name} />
+      <Photo className="detail-img" src={review.image} alt={review.name} />
       <div className="detail-body">
         <div className="detail-head">
           <div>
