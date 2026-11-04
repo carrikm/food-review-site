@@ -18,11 +18,21 @@ export default function App() {
   const [editing, setEditing] = useState(null)
   const [loggingIn, setLoggingIn] = useState(false)
 
-  useEffect(() => {
+  function loadReviews() {
     fetchReviews()
       .then(setReviews)
-      .catch((err) => setLoadError(err.message))
+      .catch((err) => setLoadError(err.message || 'Something went wrong.'))
       .finally(() => setLoading(false))
+  }
+
+  function retryLoad() {
+    setLoading(true)
+    setLoadError('')
+    loadReviews()
+  }
+
+  useEffect(() => {
+    loadReviews()
 
     supabase.auth.getSession().then(({ data }) => setSession(data.session))
     const { data } = supabase.auth.onAuthStateChange((_event, s) => setSession(s))
@@ -87,7 +97,12 @@ export default function App() {
         {loading ? (
           <p className="empty">Loading…</p>
         ) : loadError ? (
-          <p className="empty">Could not load reviews: {loadError}</p>
+          <div className="empty">
+            <p>Could not load reviews: {loadError}</p>
+            <button className="btn" onClick={retryLoad}>
+              Try again
+            </button>
+          </div>
         ) : sorted.length === 0 ? (
           <p className="empty">No reviews yet.</p>
         ) : (

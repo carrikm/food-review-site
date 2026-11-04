@@ -1,10 +1,11 @@
 import { overallScore } from '../utils'
+import Photo from './Photo'
 import ScoreBadge from './ScoreBadge'
 
 export default function ReviewCard({ review, rank, onOpen }) {
   return (
     <button className="card" onClick={() => onOpen(review)}>
-      <img src={review.image} alt={review.name} loading="lazy" />
+      <Photo className="card-img" src={review.image} alt={review.name} lazy />
       <span className="rank">#{rank}</span>
       <ScoreBadge score={overallScore(review)} />
       <div className="card-body">

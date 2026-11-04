@@ -6,20 +6,30 @@ import ScoreInput from './ScoreInput'
 
 export default function ReviewForm({ review, onSubmit, onClose }) {
   const editing = Boolean(review)
-  const [form, setForm] = useState({
+  const [initial] = useState(() => ({
     name: review?.name ?? '',
     location: review?.location ?? '',
     summary: review?.summary ?? '',
     taste: review?.taste ?? 5,
     price: review?.price ?? 5,
     vibe: review?.vibe ?? 5,
-  })
+  }))
+  const [form, setForm] = useState(initial)
   const [imageFile, setImageFile] = useState(null)
   const [preview, setPreview] = useState(review?.image ?? '')
   const [error, setError] = useState('')
   const [saving, setSaving] = useState(false)
 
   const set = (key) => (value) => setForm((f) => ({ ...f, [key]: value }))
+  const hasChanges = imageFile !== null || Object.keys(initial).some((key) => form[key] !== initial[key])
+
+  // Closing mid-save would look like a cancel even though the save still lands, so it's blocked.
+  // Closing with unsaved changes asks first, since Escape or a stray click would otherwise wipe them.
+  function requestClose() {
+    if (saving) return
+    if (hasChanges && !window.confirm('Discard your unsaved changes?')) return
+    onClose()
+  }
 
   function onImage(e) {
     const file = e.target.files[0]
@@ -42,7 +52,7 @@ export default function ReviewForm({ review, onSubmit, onClose }) {
   }
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={requestClose}>
       <form className="form-body" onSubmit={handleSubmit}>
         <h2>{editing ? 'Edit review' : 'Add a review'}</h2>
 
@@ -78,7 +88,7 @@ export default function ReviewForm({ review, onSubmit, onClose }) {
         {error && <p className="error">{error}</p>}
 
         <div className="form-actions">
-          <button type="button" className="btn" onClick={onClose}>
+          <button type="button" className="btn" onClick={requestClose} disabled={saving}>
             Cancel
           </button>
           <button type="submit" className="btn primary" disabled={saving}>
