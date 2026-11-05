@@ -2,11 +2,30 @@ export default function Intro() {
   return (
     <section className="intro">
       <p className="intro-lead">
-        Two people, one mission: find the best pizza within 20 minutes of Messiah University. We’re working our way
-        through the area’s independent pizzerias, from corner slice shops to sit-down favorites, and scoring each one
-        on Taste, Price, and Vibe. These three scores are then averaged into our total Slice Score, our representation of how strong a pizza place is all-around. The rankings below update
-        with every new stop. There are a lot of pizza places around here and we’ll probably miss a few, but every
-        score comes from a real visit. Browse the list and follow along with our journey as we try to find the best pizza place on the West Shore.
+        Hi! Welcome to West Shore Slices! This site was created by Carrik and Hope. We have lived close to Messiah University for a few years now, and recently realized just how many local pizza shops
+        there are around us. It seems like everywhere we go, there's another one. And every time, we say, "We should try that place some time." Yet, we still only ever really went to one or two places. One morning in bed, we finally decided that it's time to just take a look and see how many options there are. Surely we're missing out on some great options out of laziness and habit more than anything.
+      </p>
+      <br />
+      <p className="intro-lead">
+        It turns out, there are OVER 30 places within about a 20 minute drive of us! We've got a loooot of pizza to eat, folks.
+      </p>
+      <br />
+      <p className="intro-lead">
+        We chose this range because we wanted enough options to make this a fun long-term project, but also because with the amount of options in that range, going more than about 20 minutes away feels silly.
+        Pizza is pizza, after all, and it's unlikely that a place on the east shore is going to be meaningfully better enough than somewhere closer to justify the extra drive. 20 minutes felt like a nice balance between
+        options and convenience. Our range includes everything up to I-81 (Mechanicsburg, Camp Hill, and Enola), over to Carlisle, and south to Dillsburg and over to the Susquehanna around Lewisberry.
+      </p>
+      <br />
+      <p className="intro-lead">
+        People value different things. Some people don't want to go somewhere that looks a little seedy, even for great food. Some people are more price-sensitive, and will only go to restaurants that offer a lot of bang for your buck.
+        To get a comprehensive ranking, we decided to score each restaurant on three categories: Taste, Price, and Vibe. Each category is scored from 1 to 10, and the average of those three scores is the Slice Score.
+        The Slice Score is what determines the rankings on this site. This way we get to represent factors like, "This place is really good, but also expensive," or the classic Chinese restaurant stereotype of 
+        "the food is great, but the place is a little sketchy." Every review is based on our own real experience at each restaurant, and we're only reviewing each place once. That means flukes can happen. 
+        Sometimes, waitstaff is having a bad day or the pizza isn't as good as it usually is. It also works the other way. Sometimes, we'll get lucky with a pizza that's better than normal for that place.
+      </p>
+      <br />
+      <p className="intro-lead">
+        We're excited to have you along! Get out the red plastic cup, grab the garlic salt and oregano, and let's get started!
       </p>
 
       <div className="intro-details">
